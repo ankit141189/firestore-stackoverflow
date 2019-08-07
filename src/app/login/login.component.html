@@ -1,0 +1,17 @@
+<h2>Login</h2>
+<form autocomplete="off" novalidate class="login-form" [formGroup]="form">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+    </mat-form-field>
+  </div>
+  <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+      </mat-form-field>
+  </div>
+
+  <button mat-raised-button (click)="login()">Login</button>
+</form>

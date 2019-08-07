@@ -1,0 +1,15 @@
+.navigation-container {
+  height: 500px;
+}
+  
+.side-navigation {
+  width: 200px;
+}
+
+.spacer {
+    flex: 1 1 auto
+}
+
+.view-content {
+  margin-left: 20px;
+}
