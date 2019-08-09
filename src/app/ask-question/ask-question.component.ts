@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Question } from './question';
-import {AngularFirestore} from 'angularfire2/firestore'
-import { firestore } from 'firebase';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QuestionService, Question } from '../question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ask-question',
@@ -14,10 +13,11 @@ export class AskQuestionComponent implements OnInit {
   formControl: FormGroup
 
   constructor(
-    formBuilder: FormBuilder,
-    private firestore: AngularFirestore) {
+      formBuilder: FormBuilder,
+      private questionService: QuestionService,
+      private router: Router) {
     this.formControl = formBuilder.group({
-      title: [''],
+      title: ['', Validators.required],
       desc: [''] 
     })
    }
@@ -26,14 +26,11 @@ export class AskQuestionComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.formControl.value)
-    return new Promise<any>((resolve, reject) => {
-      this.firestore.collection("questions").add(this.formControl.value).then(
-      res => {
-        console.log(res)
-        resolve(res)
-      }
-    );
-    });
+    console.log(this.formControl.value);
+    var formValue = this.formControl.value; 
+    return this.questionService.submit({
+       title:  formValue.title,
+       description: formValue.desc || ''
+    } as Question).then(questionId => this.router.navigateByUrl("/questions/" + questionId))
   }
 }

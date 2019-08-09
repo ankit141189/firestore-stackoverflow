@@ -6,6 +6,9 @@ import {MatListModule} from '@angular/material/list'
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -17,8 +20,10 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatInputModule
-    
+    MatInputModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ]
 })
 export class MaterialModule {}

@@ -1,5 +1,5 @@
 .navigation-container {
-  height: 500px;
+  height: 100%;
 }
   
 .side-navigation {
@@ -12,4 +12,8 @@
 
 .view-content {
   margin-left: 20px;
+}
+
+.toolbar-button {
+  margin: 10px 5px
 }

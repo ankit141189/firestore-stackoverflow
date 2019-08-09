@@ -1,0 +1,10 @@
+<mat-nav-list>
+  <div *ngFor="let q of questions">
+    <a [routerLink]="['/questions', q.id]" class="question-summary" mat-list-item>
+      <div>
+        {{q.title}}
+        <p class="desc">{{q.description | slice:0:100}}{{q.description.length > 100 ? '...' : ''}} </p>
+    </div></a>
+    <mat-divider></mat-divider>
+  </div>
+</mat-nav-list>

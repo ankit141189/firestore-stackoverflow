@@ -1,0 +1,54 @@
+.description {
+  white-space: pre-wrap;
+  width: 600px;
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.question-title {
+  font-size: 20px;
+  font-weight: bold;
+  display: inline;
+  vertical-align: middle;
+}
+
+.display-mode {
+  display: flexbox
+}
+
+.tags {
+  margin-top: 20px;
+}
+
+.answer-button {
+  margin-top:20px;
+}
+
+.last-update {
+  color: gray;
+  font-size: 15px;
+}
+
+.edit-mode .question-title {
+  width: 100%
+}
+
+.edit-mode .question-desc {
+  width: 100%
+}
+
+.edit-mode .question-form {
+  width: 600px ;
+}
+
+.edit-mode button {
+  margin: 10px;
+}
+
+.add-answer {
+  margin-left: 30px;
+  margin-top: 10px;
+}

@@ -16,6 +16,11 @@ import { DisplayQuestionComponent } from './display-question/display-question.co
 import { LoginComponent } from './login/login.component';
 import { UserService } from './user.service';
 import { RegisterComponent } from './register/register.component';
+import { UserQuestionsComponent } from './user-questions/user-questions.component';
+import { EditTagsComponent } from './edit-tags/edit-tags.component';
+import { AddAnswerComponent } from './add-answer/add-answer.component';
+import { AnswerService } from './answer.service';
+import { DisplayAnswerComponent } from './display-answer/display-answer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,11 @@ import { RegisterComponent } from './register/register.component';
     AskQuestionComponent,
     DisplayQuestionComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserQuestionsComponent,
+    EditTagsComponent,
+    AddAnswerComponent,
+    DisplayAnswerComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,7 @@ import { RegisterComponent } from './register/register.component';
 
     MaterialModule
   ],
-  providers: [UserService],
+  providers: [UserService, AnswerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

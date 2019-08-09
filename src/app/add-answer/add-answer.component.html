@@ -1,0 +1,13 @@
+<div class="add-answer">
+  <mat-form-field class="answer-text">
+    <textarea 
+      matInput
+      [formControl]="inputFormCtrl"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="6"
+      placeholder="Add answer...">
+    </textarea>
+  </mat-form-field>
+  <button mat-raised-button [disabled]="!inputFormCtrl.valid" (click)="submit()">Submit</button>
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+</div>

@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     return this.userService.register(this.userRegistration.value.email, this.userRegistration.value.password)
-        .then(res =>  this.router.navigateByUrl('/login'));
+        .then(res =>  this.router.navigateByUrl(''));
   }
 
   ngOnInit() {

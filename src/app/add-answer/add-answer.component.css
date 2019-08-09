@@ -1,0 +1,14 @@
+.add-answer {
+  width: 600px;
+  padding: 10px;
+  border: 1px solid;
+}
+
+.answer-text {
+  width: 100%;
+}
+
+.add-answer button {
+  margin: 10px;
+  display: inline;
+}

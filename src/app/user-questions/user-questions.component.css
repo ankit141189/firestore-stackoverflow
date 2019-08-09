@@ -1,0 +1,9 @@
+.question-summary {
+  padding-top: 10px;
+  height: 100%
+}
+
+.desc {
+  color: gray;
+  font-size: 15px;
+}
