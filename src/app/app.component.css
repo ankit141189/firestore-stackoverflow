@@ -3,11 +3,7 @@
 }
   
 .side-navigation {
-  width: 200px;
-}
-
-.spacer {
-    flex: 1 1 auto
+  width: 250px;
 }
 
 .view-content {
@@ -16,4 +12,25 @@
 
 .toolbar-button {
   margin: 10px 5px
+}
+
+.search-bar {
+  display: inline-flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 15px;
+  flex: 1 1 auto;
+  align-items: baseline;
+}
+
+.search-bar mat-form-field {
+  width: 100%;
+}
+
+.search-button {
+  display: inline;
+}
+
+.toolbar {
+  margin-bottom: 20px;
 }

@@ -1,0 +1,35 @@
+.question-summary {
+  padding-top: 10px;
+  height: 100%
+}
+
+.desc {
+  color: gray;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.answer-count {
+  display: inline-block;
+  width: 100px;
+  background-color: orange;
+  padding: 5px;
+}
+
+.question-item {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.question-text {
+  display: inline-block;
+  /* width: calc(100% - 325px); */
+  flex: 1;
+}
+
+.question-tags {
+  display: inline-block;
+  width: 200px;
+}

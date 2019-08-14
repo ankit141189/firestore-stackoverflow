@@ -5,6 +5,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { TagsService } from '../tags.service';
 
 @Component({
   selector: 'app-edit-tags',
@@ -16,15 +17,19 @@ export class EditTagsComponent {
   tagCtrl = new FormControl();
   filteredTags: Observable<string[]>;
   tags: string[] = [];
-  allTags: string[] = ['Java', 'Angular', 'Firestore', 'Javascript', 'APIs'];
+  allTags: string[] = [];
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor() {
+  constructor(tagService: TagsService) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tag: string | null) =>this._filter(tag)));
+        map((tag: string | null) => this._filter()));
+    tagService.getAllTags().then(tags => {
+      console.log(tags);
+      this.allTags = tags;
+    })
   }
 
   @Input()
@@ -67,7 +72,7 @@ export class EditTagsComponent {
     this.tagCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
+  private _filter(): string[] {
     return this.allTags.filter(tag => !this.tags.includes(tag.trim()));
   }
 

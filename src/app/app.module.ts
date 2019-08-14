@@ -21,6 +21,10 @@ import { EditTagsComponent } from './edit-tags/edit-tags.component';
 import { AddAnswerComponent } from './add-answer/add-answer.component';
 import { AnswerService } from './answer.service';
 import { DisplayAnswerComponent } from './display-answer/display-answer.component';
+import { QuestionListComponent } from './question-list/question-list.component';
+import { UserAnswersComponent } from './user-answers/user-answers.component';
+import { SubscribedQuestionsComponent } from './subscribed-questions/subscribed-questions.component';
+import { SearchQuestionsComponent } from './search-questions/search-questions.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { DisplayAnswerComponent } from './display-answer/display-answer.componen
     UserQuestionsComponent,
     EditTagsComponent,
     AddAnswerComponent,
-    DisplayAnswerComponent
+    DisplayAnswerComponent,
+    QuestionListComponent,
+    UserAnswersComponent,
+    SubscribedQuestionsComponent,
+    SearchQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +53,7 @@ import { DisplayAnswerComponent } from './display-answer/display-answer.componen
 
     MaterialModule
   ],
-  providers: [UserService, AnswerService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

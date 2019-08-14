@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
-  selector: 'app-user-questions',
-  templateUrl: './user-questions.component.html',
-  styleUrls: ['./user-questions.component.css']
+  selector: 'app-subscribed-questions',
+  templateUrl: './subscribed-questions.component.html',
+  styleUrls: ['./subscribed-questions.component.css']
 })
-export class UserQuestionsComponent implements OnInit {
+export class SubscribedQuestionsComponent implements OnInit {
 
   questions: Question[]
 
@@ -24,11 +24,12 @@ export class UserQuestionsComponent implements OnInit {
           callbackUrl: this.router.routerState.snapshot.url
         }])
       } else {
-        this.questionService.listQuestionsCreatedByCurrentUser()
+        this.questionService.listQuestionsSubscribedByCurrentUser()
           .then(res => {
               this.questions = res
           })
       }
     })
   }
+
 }

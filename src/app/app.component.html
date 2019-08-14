@@ -1,6 +1,20 @@
-<mat-toolbar>
+
+<mat-toolbar color="primary" class="mat-elevation-z6 toolbar">
   <span>Yet another StackOverflow</span>
-  <span class="spacer"></span>
+  <div class="search-bar">
+    <mat-form-field>
+      <input
+          matInput
+          [formControl]="searchCtrl"
+          placeholder="Search questions..."
+          (keyup.enter)="search()">
+    </mat-form-field>
+    <button
+      class="search-button"
+      mat-icon-button
+      (click)="search()"><mat-icon>search</mat-icon></button>
+  </div>
+
   <div *ngIf="!userService.currentUser">
         <button mat-raised-button class="toolbar-button" (click)="login()">Login</button>
         <button mat-raised-button class="toolbar-button" routerLink="/register">Register</button>
@@ -10,13 +24,14 @@
     <button mat-raised-button class="toolbar-button" (click)="logout()">Logout</button>
   </div>
 </mat-toolbar>
+
 <mat-sidenav-container class="navigation-container">
 	<mat-sidenav class="side-navigation" mode="side" opened>
     <mat-nav-list>
       <a routerLink="/ask-question" routerLinkActive="active" mat-list-item>Ask a new question</a>
-      <a routerLink="/user-questions" routerLinkActive="active" mat-list-item>Your previously asked questions</a>
-      <a mat-list-item>Subscribed questions</a>
-      <a mat-list-item>Questions answered by you</a>
+      <a routerLink="/user-questions" routerLinkActive="active" mat-list-item>Questions asked by you</a>
+      <a routerLink="/subscribed-questions" routerLinkActive="active" mat-list-item>Questions subscribed by you</a>
+      <a routerLink="/user-answers" routerLinkActive="active" mat-list-item>Questions answered by you</a>
       <a mat-list-item>Subscribed topics</a>
     </mat-nav-list>
   </mat-sidenav>

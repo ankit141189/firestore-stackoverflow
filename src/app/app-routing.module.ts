@@ -6,6 +6,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserQuestionsComponent } from './user-questions/user-questions.component';
 import { EditTagsComponent } from './edit-tags/edit-tags.component';
+import { UserAnswersComponent } from './user-answers/user-answers.component';
+import { SubscribedQuestionsComponent } from './subscribed-questions/subscribed-questions.component';
+import { SearchQuestionsComponent } from './search-questions/search-questions.component';
 
 
 const routes: Routes = [
@@ -14,7 +17,11 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'user-questions', component: UserQuestionsComponent},
+  {path: 'user-answers', component: UserAnswersComponent},
+  {path: 'subscribed-questions', component: SubscribedQuestionsComponent},
   {path: 'edit-tags', component: EditTagsComponent},
+  {path: 'search/:q', component: SearchQuestionsComponent},
+  
 ];
 
 @NgModule({

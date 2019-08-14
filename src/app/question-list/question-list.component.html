@@ -1,0 +1,21 @@
+<mat-nav-list>
+    <div *ngFor="let q of questions">
+      <a [routerLink]="['/questions', q.id]" class="question-summary" mat-list-item>
+        <div class="question-item">
+          <div class="question-text">
+          <div>{{q.title}}</div>
+          <div class="desc">{{q.description | slice:0:100}}{{q.description.length > 100 ? '...' : ''}} </div>
+        </div>
+        <div class="question-tags">
+          <mat-chip-list>
+            <mat-chip *ngFor="let tag of q.tags">{{tag}}</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="answer-count">
+          {{q.answerCount}} {{q.answerCount == 1 ? 'answer' : 'answers'}} 
+        </div>
+        </div>
+      </a>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-nav-list>

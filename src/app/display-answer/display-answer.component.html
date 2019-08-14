@@ -1,1 +1,25 @@
-<p>display-answer works!</p>
+<div class="answer-display">
+    <div class="vote-count">
+      {{voteCount()}}
+    </div>
+    <div class="vote">
+      <div><button [disabled]="!hasLoggedInUser || hasUserDownvote()" mat-icon-button (click)="toggleVote(1)">
+        <mat-icon [ngClass]="{'voted': hasUserUpvote()}">thumb_up</mat-icon>
+      </button></div>
+      <div><button [disabled]="!hasLoggedInUser || hasUserUpvote()" mat-icon-button (click)="toggleVote(-1)">
+          <mat-icon [ngClass]="{'voted': hasUserDownvote()}">thumb_down</mat-icon>
+        </button></div>
+    </div>
+    <div class="answer-content">
+        <div class="answer-header">
+          {{currentAnswer.submitter.email}} answered on {{currentAnswer.lastUpdateTimestamp | date}}
+        </div>
+        <div class="answer-delete">
+          <button mat-icon-button *ngIf="isAuthor()" (click)="deleteAnswer()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+       <div class="answer-text">{{currentAnswer.answer}}</div>
+    </div>
+
+</div>

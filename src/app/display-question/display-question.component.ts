@@ -7,6 +7,8 @@ import { EditTagsComponent } from '../edit-tags/edit-tags.component';
 import { Answer, AnswerService } from '../answer.service';
 import { AddAnswerFormActionEvent } from '../add-answer/add-answer.component';
 
+type status = 'init' | 'exists' | 'not-found' | 'deleted';
+
 @Component({
   selector: 'app-display-question',
   templateUrl: './display-question.component.html',
@@ -20,24 +22,24 @@ export class DisplayQuestionComponent implements OnInit {
   formControl: FormGroup;
   addAnswerMode: boolean = false;
   answers: Promise<Answer[]> = Promise.resolve([])
+  hasLoggedInUser = false;
+  exists: status = 'init'; 
 
   @ViewChild('editTags', {static: false}) editTags: EditTagsComponent;
 
   constructor(
     private route: ActivatedRoute,  
-    private router: Router,
     private questionService: QuestionService,
     private answerService: AnswerService,
     private userService: UserService,
     private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.hasLoggedInUser = !!this.userService.currentUser;
     this.questionId = this.route.snapshot.paramMap.get('id');
     this.questionService.get(this.questionId).then(res => {
       this.question = res
-    }).then(res => {
-      console.log(this.question.createdByUser);
-      console.log(this.userService.currentUser);
+      this.exists = this.question ? 'exists' : 'not-found';
     });
 
     this.answers = this.answerService.listAnswersForQuestion(this.questionId);  
@@ -103,5 +105,30 @@ export class DisplayQuestionComponent implements OnInit {
         this.addAnswerMode = false;
         break;
     }
+  }
+
+  isUserSubscribed(): boolean {
+    return this.question.subscribers.includes(this.userService.currentUser.email);
+  }
+
+  toggleSubscribe() {
+    const subscribeUpdate =  this.isUserSubscribed() 
+        ? this.questionService.unsubscribe(this.questionId) : this.questionService.subscribe(this.questionId);
+    subscribeUpdate.then(res => this.questionService.get(this.question.id))
+      .then(doc => {
+        this.question = doc;
+        this.editMode = false;
+      });
+  }
+
+  removeAnswer(answerId: string) {
+    this.answers = this.answerService.listAnswersForQuestion(this.questionId);
+  }
+
+  deleteQuestion() {
+    this.questionService.deleteQuestion(this.questionId).then(res => {
+      this.question = undefined;
+      this.exists = 'deleted';
+    })
   }
 }

@@ -4,6 +4,9 @@
     <button *ngIf="isEditable()" mat-icon-button (click)="switchToEditMode()">
         <mat-icon>create</mat-icon>
     </button>
+    <button *ngIf="isEditable()" mat-icon-button (click)="deleteQuestion()">
+      <mat-icon>delete</mat-icon>
+    </button>
     <div class="last-update">Last updated on: {{question.lastUpdateTimestamp | date}}</div>
     <p *ngIf="question.description" class="description">{{question.description}}</p>
     <div class="tags">
@@ -11,8 +14,22 @@
         <mat-chip *ngFor="let tag of question.tags">{{tag}}</mat-chip>
       </mat-chip-list>
     </div>
-    <div class="answer-button">
+    <div class="answer-button" *ngIf="hasLoggedInUser">
       <button mat-raised-button [disabled]="addAnswerMode" (click)="switchToAnswerMode()">+ Answer this Question</button>
+    </div>
+    <div class="subscribe-button" *ngIf="hasLoggedInUser">
+        <button mat-raised-button (click)="toggleSubscribe()"
+          [color]="isUserSubscribed() ? 'primary' : null">
+          {{isUserSubscribed()? 'Unsubscribe' : 'Subscribe'}}
+        </button>
+    </div>
+    <div class="answers">
+      <mat-list>
+        <a mat-list-item [id]="answer.id" class="answer-item" *ngFor="let answer of answers | async">
+          <app-display-answer [answer]="answer" (answerDeleted)="removeAnswer($event)"></app-display-answer>
+          <mat-divider></mat-divider>
+        </a>
+      </mat-list>
     </div>
   </div>
   <div *ngIf="editMode" class="edit-mode">
@@ -47,4 +64,9 @@
     </app-add-answer>
   </div>
 </div>
-
+<div *ngIf="exists == 'not-found'">
+  Question not found
+</div>
+<div *ngIf="exists == 'deleted'">
+  Question deleted
+</div>

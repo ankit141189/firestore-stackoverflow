@@ -1,0 +1,41 @@
+.answer-display {
+  display: flex;
+  margin: 10px;
+}
+
+.vote-count {
+  display: inline-block;
+  line-height: 60px;
+  font-size: 30px;
+}
+.vote {
+  display: inline-block;
+  width: 50px;
+  height: 80px;
+}
+
+.answer-text {
+  vertical-align: top;
+  margin-top: 10px; 
+} 
+.answer-header {
+  color: gray;
+  font-size: 15px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.answer-delete {
+  display: inline-block;
+}
+
+.answer-content {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  height: 100%;;
+}
+
+.voted {
+  color: purple;
+}
