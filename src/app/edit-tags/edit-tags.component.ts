@@ -6,6 +6,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { TagsService } from '../tags.service';
+import { TopicTagDisplay } from '../question.service';
 
 @Component({
   selector: 'app-edit-tags',
@@ -15,26 +16,34 @@ import { TagsService } from '../tags.service';
 export class EditTagsComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
-  tags: string[] = [];
-  allTags: string[] = [];
+  filteredTags: TopicTagDisplay[];
+  tags: TopicTagDisplay[] = [];
+  allTags: TopicTagDisplay[] = [];
+  tagLokup: Map<string, TopicTagDisplay>;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(tagService: TagsService) {
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-        startWith(null),
-        map((tag: string | null) => this._filter()));
+    
     tagService.getAllTags().then(tags => {
       console.log(tags);
-      this.allTags = tags;
+      this.allTags = tags.map(tag => {
+       return {
+         id: tag.id,
+         name: tag.tagName
+       } as TopicTagDisplay 
+      });
+      this.tagLokup = new Map();
+      this.allTags.forEach(tag => this.tagLokup.set(tag.name.toLowerCase(), tag))
+      this.filteredTags = this.filter();
     })
   }
 
   @Input()
-  set initialValue(initialValue: string[]) {
+  set initialValue(initialValue: TopicTagDisplay[]) {
     this.tags = initialValue ? initialValue.slice() : [];
+    this.filteredTags = this.filter();
   }
 
   add(event: MatChipInputEvent): void {
@@ -45,8 +54,10 @@ export class EditTagsComponent {
       const value = event.value;
 
       // Add our fruit
-      if ((value || '').trim()) {
-        this.tags.push(value.trim());
+      const normalizedValue = (value || '').trim().toLowerCase()
+      if (normalizedValue && this.tagLokup.get(normalizedValue)) {
+        this.tags.push(this.tagLokup.get(normalizedValue));
+        this.filteredTags = this.filter();
       }
 
       // Reset the input value
@@ -58,29 +69,33 @@ export class EditTagsComponent {
     }
   }
 
-  remove(tag: string): void {
+  remove(tag: TopicTagDisplay): void {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+    this.filteredTags = this.filter();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
+    console.log(event.option.value);
+    this.tags.push(event.option.value);
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
+    this.filteredTags = this.filter();
   }
 
-  private _filter(): string[] {
-    return this.allTags.filter(tag => !this.tags.includes(tag.trim()));
+  private filter(): TopicTagDisplay[] {
+    const tagIds = this.tags.map(tag => tag.id)
+    return this.allTags.filter(tag => !tagIds.includes(tag.id));
   }
 
-  getTags(): string[] {
+  getTags(): TopicTagDisplay[] {
     return this.tags.slice();
   }
 
-  getTagsControl(): FormControl{
+  getTagsControl(): FormControl {
     return this.tagCtrl;
   }
 

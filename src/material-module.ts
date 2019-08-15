@@ -9,6 +9,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import {MatChipsModule} from '@angular/material/chips';
     MatInputModule,
     MatIconModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class MaterialModule {}

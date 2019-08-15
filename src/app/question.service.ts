@@ -4,6 +4,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase/app';
 import * as algolia from 'algoliasearch';
 
+export interface TopicTagDisplay {
+  id: string
+  name: string
+}
+
 export interface Question extends QuestionDoc {
   id: string
 }
@@ -11,7 +16,9 @@ export interface Question extends QuestionDoc {
 interface QuestionDoc {
   title: string
   description: string
-  tags: string[]
+  tags: string[] | firestore.FieldValue
+  topicTags: TopicTagDisplay[]
+  topicIds: string[]
   createdByUser: string
   lastUpdateTimestamp: number 
   answerCount?: number
@@ -31,19 +38,17 @@ export class QuestionService {
   }
 
   submit(question: Question): Promise<string> {
-    return new Promise<any>((resolve, reject) => {
-      if (!this.userService.currentUser) {
-        reject(new Error("No logged in user"));
-      }
-      const qDoc = {} as QuestionDoc
-      qDoc.title = question.title
-      qDoc.description = question.description
-      qDoc.tags = question.tags
-      qDoc.createdByUser = this.userService.currentUser.id;
-      qDoc.lastUpdateTimestamp = Date.now()
-      this.aFirestore.collection('questions').add(qDoc)
-          .then(result => resolve(result.id))
-    });
+    if (!this.userService.currentUser) {
+      throw new Error("No logged in user");
+    }
+    const qDoc = {} as QuestionDoc
+    qDoc.title = question.title
+    qDoc.description = question.description
+    qDoc.topicTags = question.topicTags
+    qDoc.topicIds = question.topicTags.map(topic => topic.id)
+    qDoc.createdByUser = this.userService.currentUser.id;
+    qDoc.lastUpdateTimestamp = Date.now()
+    return this.aFirestore.collection('questions').add(qDoc).then(res => res.id);
   }
 
   get(id: string): Promise<Question|null> {
@@ -105,7 +110,8 @@ export class QuestionService {
     if (question.description) {
       qDoc.description = question.description;
     }
-    qDoc.tags = question.tags;
+    qDoc.topicTags = question.topicTags || []
+    qDoc.topicIds = qDoc.topicTags.map(topic => topic.id)
     qDoc.lastUpdateTimestamp = Date.now();
     return this.aFirestore.doc('questions/' + question.id).update(qDoc);
   }
@@ -147,5 +153,10 @@ export class QuestionService {
 
   deleteQuestion(questionId: string): Promise<void> {
     return this.aFirestore.collection('questions').doc(questionId).delete();
+  }
+
+  searchByTopic(topicId: string): Promise<Question[]> {
+    return this.aFirestore.collection('questions').ref.where('topicIds', 'array-contains', topicId)
+      .get().then(res => res.docs.map(this.convertDocToQuestion_));
   }
 }

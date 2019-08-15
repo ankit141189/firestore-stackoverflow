@@ -1,0 +1,22 @@
+.spinner {
+  display: inline-block;
+}
+
+.update-button {
+  display: inline-block;
+}
+
+.update {
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+
+.end-space {
+  flex-basis: 500px;
+  flex-shrink: 1;
+}

@@ -34,7 +34,7 @@ export class AskQuestionComponent implements OnInit {
     return this.questionService.submit({
        title:  formValue.title,
        description: formValue.desc || '',
-       tags: this.editTags.getTags() || [],
+       topicTags: this.editTags.getTags() || [],
     } as Question).then(questionId => this.router.navigateByUrl("/questions/" + questionId))
   }
 }

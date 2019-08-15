@@ -77,7 +77,7 @@ export class DisplayQuestionComponent implements OnInit {
       updatedQuestion.description = this.formControl.value.description;
     }
 
-    updatedQuestion.tags = this.editTags.getTags();
+    updatedQuestion.topicTags = this.editTags.getTags();
 
     return this.questionService.update(updatedQuestion)
       .then(res => this.questionService.get(this.question.id))

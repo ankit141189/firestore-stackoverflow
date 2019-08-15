@@ -11,7 +11,7 @@
     <p *ngIf="question.description" class="description">{{question.description}}</p>
     <div class="tags">
       <mat-chip-list>
-        <mat-chip *ngFor="let tag of question.tags">{{tag}}</mat-chip>
+        <mat-chip *ngFor="let tag of question.topicTags">{{tag.name}}</mat-chip>
       </mat-chip-list>
     </div>
     <div class="answer-button" *ngIf="hasLoggedInUser">
@@ -50,7 +50,7 @@
         </mat-form-field>
       </div>
       <div>
-        <app-edit-tags #editTags [initialValue]="question.tags"></app-edit-tags>
+        <app-edit-tags #editTags [initialValue]="question.topicTags"></app-edit-tags>
       </div>
       <button mat-raised-button [disabled]="!formControl.valid" (click)="updateQuestion()">Update</button>
       <button mat-raised-button (click)="cancel()">Cancel</button>

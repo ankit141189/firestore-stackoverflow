@@ -25,6 +25,8 @@ import { QuestionListComponent } from './question-list/question-list.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
 import { SubscribedQuestionsComponent } from './subscribed-questions/subscribed-questions.component';
 import { SearchQuestionsComponent } from './search-questions/search-questions.component';
+import { SubscribeTopicsComponent } from './subscribe-topics/subscribe-topics.component';
+import { TopicQuestionsComponent } from './topic-questions/topic-questions.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SearchQuestionsComponent } from './search-questions/search-questions.co
     QuestionListComponent,
     UserAnswersComponent,
     SubscribedQuestionsComponent,
-    SearchQuestionsComponent
+    SearchQuestionsComponent,
+    SubscribeTopicsComponent,
+    TopicQuestionsComponent
   ],
   imports: [
     BrowserModule,

@@ -8,12 +8,14 @@
         </div>
         <div class="question-tags">
           <mat-chip-list>
-            <mat-chip *ngFor="let tag of q.tags">{{tag}}</mat-chip>
+            <mat-chip *ngFor="let tag of q.topicTags">{{tag.name}}</mat-chip>
           </mat-chip-list>
         </div>
-        <div class="answer-count">
-          {{q.answerCount}} {{q.answerCount == 1 ? 'answer' : 'answers'}} 
-        </div>
+        <mat-chip-list>
+          <mat-chip color="accent" selected>
+              {{q.answerCount}} {{q.answerCount == 1 ? 'answer' : 'answers'}} 
+          </mat-chip>
+        </mat-chip-list>
         </div>
       </a>
       <mat-divider></mat-divider>

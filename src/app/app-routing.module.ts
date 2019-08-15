@@ -9,6 +9,8 @@ import { EditTagsComponent } from './edit-tags/edit-tags.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
 import { SubscribedQuestionsComponent } from './subscribed-questions/subscribed-questions.component';
 import { SearchQuestionsComponent } from './search-questions/search-questions.component';
+import { SubscribeTopicsComponent } from './subscribe-topics/subscribe-topics.component';
+import { TopicQuestionsComponent } from './topic-questions/topic-questions.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'subscribed-questions', component: SubscribedQuestionsComponent},
   {path: 'edit-tags', component: EditTagsComponent},
   {path: 'search/:q', component: SearchQuestionsComponent},
+  {path: 'subscribed-topics', component: SubscribeTopicsComponent},
+  {path: 'topics/:topicId', component: TopicQuestionsComponent},
   
 ];
 

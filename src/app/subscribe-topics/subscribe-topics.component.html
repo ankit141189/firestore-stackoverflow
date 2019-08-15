@@ -1,0 +1,12 @@
+<mat-list>
+  <mat-list-item *ngFor="let topic of topics">
+    <mat-checkbox [id]="topic.id" [checked]="isSelected(topic.id)" (change)="toggle($event)">{{topic.tagName}}</mat-checkbox>
+    <div class="spacer"></div>
+    <button mat-flat-button color="accent" (click)="routeToTopic(topic.id)">{{topic.questionsCount || 0}} questions</button>  
+   <div class="end-space"></div>
+  </mat-list-item>
+</mat-list>
+<div class="update">
+  <button class="update-button" mat-raised-button (click)="update()">Update subscribed topics</button>
+  <mat-spinner *ngIf="updateInProgress" class="spinner" diameter="30" ></mat-spinner>
+</div>
