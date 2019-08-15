@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuestionService, Question } from '../question.service';
 import { Router } from '@angular/router';
+import { EditTagsComponent } from '../edit-tags/edit-tags.component';
 
 @Component({
   selector: 'app-ask-question',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 export class AskQuestionComponent implements OnInit {
 
   formControl: FormGroup
+
+  @ViewChild('editTags', {static: false}) editTags: EditTagsComponent;
 
   constructor(
       formBuilder: FormBuilder,
@@ -30,7 +33,8 @@ export class AskQuestionComponent implements OnInit {
     var formValue = this.formControl.value; 
     return this.questionService.submit({
        title:  formValue.title,
-       description: formValue.desc || ''
+       description: formValue.desc || '',
+       tags: this.editTags.getTags() || [],
     } as Question).then(questionId => this.router.navigateByUrl("/questions/" + questionId))
   }
 }
